@@ -4,20 +4,52 @@
     <meta charset="UTF-8" />
     <title>About Us | Vidyanchal School</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-      /* General Styles */
+      :root {
+        --primary: #f56135;
+        --primary-light: #ff8a65;
+        --accent: #e9bd0b;
+        --accent-light: #ffd54f;
+        --dark: #222;
+        --darker: #111;
+        --light-bg: #f9fafb;
+        --lighter-bg: #fff;
+        --border-radius: 16px;
+        --border-radius-sm: 8px;
+        --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana,
+          sans-serif;
+        --heading-font: "Playfair Display", serif;
+        --text-color: #444;
+        --text-light: #666;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+        --transition: all 0.3s ease;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        color: #333;
+        font-family: var(--font-family);
+        background: var(--light-bg);
+        color: var(--text-color);
         margin: 0;
         padding: 0;
-        background-color: #f9f9f9;
+        scroll-behavior: smooth;
+        line-height: 1.7;
       }
 
       h1,
@@ -26,121 +58,676 @@
       h4,
       h5,
       h6 {
-        color: #0056b3;
+        font-family: var(--heading-font);
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--primary);
       }
 
       a {
         text-decoration: none;
-        color: #0056b3;
+        color: var(--primary);
+        transition: var(--transition);
       }
 
       a:hover {
-        color: #ff5722;
+        color: var(--accent);
       }
 
       /* Navbar Styles */
       .navbar {
-        background-color: #0056b3;
-        padding: 1rem;
+        background: var(--primary);
+        box-shadow: var(--shadow-md);
+        letter-spacing: 0.8px;
+        padding: 0.8rem 0;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .navbar-brand {
-        color: #fff;
-        font-weight: bold;
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        color: white !important;
       }
 
       .navbar-brand img {
         margin-right: 10px;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled .navbar-brand img {
+        height: 30px;
       }
 
       .navbar-nav .nav-link {
-        color: #fff;
-        margin: 0 10px;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+        padding: 0.5rem 1rem;
+        margin: 0 0.2rem;
+        border-radius: var(--border-radius-sm);
+        position: relative;
       }
 
+      .navbar-nav .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .navbar-nav .nav-link.active,
       .navbar-nav .nav-link:hover {
-        color: #ffcc00;
+        color: white;
       }
 
-      .navbar-toggler {
+      .navbar-nav .nav-link.active::before,
+      .navbar-nav .nav-link:hover::before {
+        width: 70%;
+      }
+
+      .btn-warning {
+        background: var(--accent);
+        color: var(--darker);
+        font-weight: 600;
         border: none;
+        border-radius: var(--border-radius-sm);
+        padding: 0.6rem 1.5rem;
+        transition: var(--transition);
+        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
 
-      .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+      .btn-warning:hover {
+        background: var(--accent-light);
+        color: var(--darker);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
       }
 
-      /* About Section */
+      .btn-warning:active {
+        transform: translateY(0);
+      }
+
+      /* Breadcrumb */
+      .breadcrumb-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: white;
+        padding: 1.5rem 0;
+        margin-bottom: 3rem;
+      }
+
+      .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+      }
+
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .breadcrumb-item.active {
+        color: var(--accent);
+      }
+
+      .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* About Hero Section */
+      .about-hero {
+        padding: 4rem 0;
+        background: url("assets/img/about-bg-pattern.png") center/cover
+            no-repeat,
+          linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .about-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      .about-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      .about-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+        position: relative;
+        display: inline-block;
+      }
+
+      .about-hero h1::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .about-hero p.lead {
+        font-size: 1.25rem;
+        color: var(--text-color);
+        margin-bottom: 2rem;
+      }
+
+      .about-hero img {
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+      }
+
+      .about-hero img:hover {
+        transform: scale(1.02);
+      }
+
+      /* About Content Sections */
       .about-section {
         padding: 4rem 0;
-        background-color: #fff;
       }
 
       .about-section h2 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .about-section h2::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
       }
 
       .about-section p {
         font-size: 1.1rem;
-        color: #555;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
       }
 
-      .about-section a {
+      .about-feature-box {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .about-feature-box:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .about-feature-box i {
+        font-size: 2.5rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .about-feature-box h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .mission-vision {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: var(--border-radius);
+        padding: 3rem;
+        box-shadow: var(--shadow-sm);
+        margin: 3rem 0;
+      }
+
+      .mission-vision h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+      }
+
+      .mission-vision ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .mission-vision ul li {
+        padding-left: 2rem;
+        position: relative;
+        margin-bottom: 1rem;
+      }
+
+      .mission-vision ul li::before {
+        content: "\f00c";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+      }
+
+      .principal-message {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 3rem;
+        box-shadow: var(--shadow-sm);
+        margin: 3rem 0;
+        border-left: 5px solid var(--accent);
+      }
+
+      .principal-message blockquote {
+        font-size: 1.2rem;
+        font-style: italic;
+        color: var(--text-color);
+        position: relative;
+        padding-left: 2rem;
+      }
+
+      .principal-message blockquote::before {
+        content: "\f10d";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: rgba(0, 86, 179, 0.1);
+        font-size: 3rem;
+        line-height: 1;
+      }
+
+      .principal-message .blockquote-footer {
+        margin-top: 1.5rem;
+        font-size: 1rem;
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .values-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .value-card {
+        flex: 1 1 300px;
+        background: white;
+        border-radius: var(--border-radius-sm);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .value-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .value-card i {
+        font-size: 1.5rem;
+        color: var(--accent);
+        margin-top: 0.3rem;
+      }
+
+      .value-card h4 {
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      /* Timeline Section */
+      .timeline-section {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      }
+
+      .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+
+      .timeline::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        background: var(--primary);
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+      }
+
+      .timeline-item {
+        padding: 10px 40px;
+        position: relative;
+        width: 50%;
+        box-sizing: border-box;
+      }
+
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: var(--accent);
+        border: 4px solid var(--primary);
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .left {
+        left: 0;
+        text-align: right;
+      }
+
+      .right {
+        left: 50%;
+        text-align: left;
+      }
+
+      .left::after {
+        right: -12px;
+      }
+
+      .right::after {
+        left: -12px;
+      }
+
+      .timeline-content {
+        padding: 20px;
+        background: white;
+        border-radius: var(--border-radius-sm);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .timeline-year {
         font-weight: bold;
-        color: #ff5722;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
       }
 
-      .about-section a:hover {
-        text-decoration: underline;
+      /* Team Section */
+      .team-section {
+        padding: 4rem 0;
       }
 
-      .about-section img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Footer Styles */
-      footer {
-        background-color: #0056b3;
-        color: #fff;
+      .team-card {
+        background: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        margin-bottom: 2rem;
         text-align: center;
-        padding: 1rem 0;
+      }
+
+      .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .team-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .team-card-body {
+        padding: 1.5rem;
+      }
+
+      .team-card h4 {
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .team-card p {
+        color: var(--text-light);
+        margin-bottom: 1rem;
+      }
+
+      .team-social {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+
+      .team-social a {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: var(--light-bg);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+      }
+
+      .team-social a:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--darker) 100%
+        );
+        color: var(--secondary-text);
+        text-align: center;
+        padding: 2.5rem 0 1.5rem 0;
+        margin-top: 4rem;
+        font-size: 1rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
       }
 
       footer a {
-        color: #ffcc00;
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
       }
 
       footer a:hover {
-        color: #ff5722;
+        color: white;
+        text-decoration: none;
+      }
+
+      .social-icons {
+        margin: 1.5rem 0;
+      }
+
+      .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 50%;
+        margin: 0 0.5rem;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background: var(--accent);
+        color: var(--darker);
+        transform: translateY(-3px);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      .footer-links a {
+        margin: 0 1rem;
+        padding: 0.3rem 0;
+        position: relative;
+      }
+
+      .footer-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover::after {
+        width: 70%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .about-hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .timeline::after {
+          left: 31px;
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+
+        .timeline-item::after {
+          left: 18px;
+        }
+
+        .left,
+        .right {
+          left: 0;
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .about-hero {
+          padding: 3rem 0;
+        }
+
+        .about-hero h1 {
+          font-size: 2rem;
+        }
+
+        .about-section h2 {
+          font-size: 1.8rem;
+        }
+
+        .mission-vision,
+        .principal-message {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand {
+          font-size: 1.2rem;
+        }
+
+        .navbar-brand img {
+          height: 30px;
+        }
+
+        .about-hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .footer-links a {
+          margin: 0 0.5rem;
+        }
       }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html"
-          ><img src="assets/img/logo.png" alt="Logo" width="40" /> Vidyanchal
-          School</a
-        >
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.png" alt="Logo" width="40" />
+          Vidyanchal School
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
+              <a class="nav-link active" href="about.html">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="academics.html">Academics</a>
@@ -161,62 +748,466 @@
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
           </ul>
-          <a href="admissions.html" class="btn btn-warning ms-3">Apply Now</a>
+          <a
+            href="admissions.html"
+            class="btn btn-warning ms-lg-3 ms-2 mt-lg-0 mt-3"
+            >Apply Now</a
+          >
         </div>
       </div>
     </nav>
+
     <!-- Breadcrumb -->
-    <section class="about-section">
+    <section class="breadcrumb-section">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">About Us</li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-6">
-            <h2>About Vidyanchal School</h2>
-            <p>
-              Vidyanchal School is devoted to academic excellence, fostering
-              creativity, and building character. Our vibrant community empowers
-              every child for a brighter future.
-              <a href="about.html">Learn more &raquo;</a>
+          <div class="col-lg-6">
+            <h1>About Vidyanchal School</h1>
+            <p class="lead">
+              Founded in 2005, Vidyanchal School is a premier co-educational
+              institution in Pune dedicated to nurturing responsible global
+              citizens through academic excellence and holistic development.
             </p>
+            <a href="#history" class="btn btn-primary me-2">Our History</a>
+            <a href="#team" class="btn btn-outline-primary">Meet Our Team</a>
           </div>
-          <div class="col-md-6 text-center">
-            <img src="assets/img/about_school.jpg" alt="About School" />
+          <div class="col-lg-6 mt-lg-0 mt-4">
+            <img
+              src="assets/img/about-school-main.jpg"
+              alt="Vidyanchal School Campus"
+              class="img-fluid"
+            />
           </div>
         </div>
       </div>
     </section>
-    <section class="py-5">
+
+    <!-- About Content Section -->
+    <section class="about-section" id="overview">
       <div class="container">
-        <h1>About Vidyanchal School</h1>
-        <p>
-          Founded in 2005, Vidyanchal School is a co-educational institution in
-          Pune dedicated to nurturing responsible global citizens. We blend
-          academics, sports, and co-curricular activities for holistic growth.
-        </p>
-        <h2 class="mt-5">Our Vision &amp; Mission</h2>
-        <ul>
-          <li>
-            <strong>Vision:</strong> To empower students with values and
-            knowledge for success in a changing world.
-          </li>
-          <li>
-            <strong>Mission:</strong> Academic excellence, character building,
-            and creativity for all.
-          </li>
-        </ul>
-        <h2 class="mt-5">Message from the Principal</h2>
-        <blockquote class="blockquote">
-          "At Vidyanchal School, each child receives attention to shape their
-          unique talents, preparing them for life beyond academics."
-        </blockquote>
-        <footer class="blockquote-footer">Mrs. A. Sharma, Principal</footer>
-        <h2 class="mt-5">Our Values</h2>
-        <ul>
-          <li>Integrity &amp; Accountability</li>
-          <li>Respect &amp; Diversity</li>
-          <li>Curiosity &amp; Innovation</li>
-        </ul>
+        <div class="row">
+          <div class="col-lg-6">
+            <h2>Our Story</h2>
+            <p>
+              Vidyanchal School was established with a vision to create an
+              educational institution that goes beyond textbooks and
+              examinations. Our founders believed in nurturing young minds to
+              become confident, compassionate, and capable individuals ready to
+              face the challenges of the modern world.
+            </p>
+            <p>
+              Over the years, we've grown from a small school with just 120
+              students to one of Pune's most respected educational institutions,
+              serving over 1,000 students across all grades. Our commitment to
+              quality education and holistic development has remained unchanged
+              since our inception.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="about-feature-box">
+                  <i class="fas fa-graduation-cap"></i>
+                  <h3>Academic Excellence</h3>
+                  <p>
+                    Consistently ranked among top schools in Pune with 100%
+                    board results
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="about-feature-box">
+                  <i class="fas fa-child"></i>
+                  <h3>Holistic Approach</h3>
+                  <p>
+                    Balancing academics with sports, arts, and character
+                    development
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="about-feature-box">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                  <h3>Expert Faculty</h3>
+                  <p>
+                    50+ qualified and experienced teachers with passion for
+                    education
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="about-feature-box">
+                  <i class="fas fa-shield-alt"></i>
+                  <h3>Safe Environment</h3>
+                  <p>
+                    Secure campus with modern safety measures and caring staff
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-    <!-- Footer: copy from index.html -->
+
+    <!-- Mission & Vision Section -->
+    <section class="about-section" id="mission">
+      <div class="container">
+        <div class="mission-vision">
+          <div class="row">
+            <div class="col-md-6">
+              <h3>Our Vision</h3>
+              <ul>
+                <li>
+                  To empower students with values, knowledge, and skills for
+                  success in a rapidly changing world
+                </li>
+                <li>
+                  To cultivate lifelong learners who think critically and act
+                  responsibly
+                </li>
+                <li>
+                  To foster global citizens who respect diversity and contribute
+                  positively to society
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h3>Our Mission</h3>
+              <ul>
+                <li>
+                  Provide academic excellence through innovative teaching
+                  methodologies
+                </li>
+                <li>
+                  Develop character and leadership qualities in every student
+                </li>
+                <li>Encourage creativity and independent thinking</li>
+                <li>
+                  Create a nurturing environment that celebrates individual
+                  differences
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Principal's Message -->
+    <section class="about-section">
+      <div class="container">
+        <div class="principal-message">
+          <h2>Message from the Principal</h2>
+          <blockquote class="blockquote">
+            "At Vidyanchal School, we believe every child is unique with immense
+            potential waiting to be discovered. Our approach combines academic
+            rigor with personalized attention to shape well-rounded individuals.
+            We don't just prepare students for exams; we prepare them for life
+            beyond the classroom walls. Our dedicated faculty works tirelessly
+            to create an environment where students feel valued, challenged, and
+            inspired to reach their highest potential."
+          </blockquote>
+          <footer class="blockquote-footer">Mrs. A. Sharma, Principal</footer>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Values -->
+    <section class="about-section" id="values">
+      <div class="container">
+        <h2>Our Core Values</h2>
+        <p>
+          These fundamental principles guide everything we do at Vidyanchal
+          School:
+        </p>
+
+        <div class="values-list">
+          <div class="value-card">
+            <i class="fas fa-hand-holding-heart"></i>
+            <div>
+              <h4>Integrity</h4>
+              <p>
+                We uphold the highest standards of honesty and ethical behavior
+                in all our actions.
+              </p>
+            </div>
+          </div>
+          <div class="value-card">
+            <i class="fas fa-users"></i>
+            <div>
+              <h4>Respect</h4>
+              <p>
+                We value diversity and treat everyone with dignity, compassion,
+                and understanding.
+              </p>
+            </div>
+          </div>
+          <div class="value-card">
+            <i class="fas fa-lightbulb"></i>
+            <div>
+              <h4>Innovation</h4>
+              <p>
+                We encourage creative thinking and embrace new ideas that
+                enhance learning.
+              </p>
+            </div>
+          </div>
+          <div class="value-card">
+            <i class="fas fa-balance-scale"></i>
+            <div>
+              <h4>Responsibility</h4>
+              <p>
+                We take ownership of our actions and their impact on our
+                community and environment.
+              </p>
+            </div>
+          </div>
+          <div class="value-card">
+            <i class="fas fa-trophy"></i>
+            <div>
+              <h4>Excellence</h4>
+              <p>
+                We strive for the highest quality in all aspects of school life.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- History Timeline -->
+    <section class="timeline-section" id="history">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Journey</h2>
+        <div class="timeline">
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <div class="timeline-year">2005</div>
+              <p>
+                Vidyanchal School founded with 120 students and 8 teachers in a
+                modest building
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content">
+              <div class="timeline-year">2008</div>
+              <p>
+                First batch of Class X students achieves 100% pass rate in board
+                exams
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <div class="timeline-year">2012</div>
+              <p>Moved to current 5-acre campus with modern infrastructure</p>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content">
+              <div class="timeline-year">2015</div>
+              <p>Launched STEM program and robotics lab</p>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <div class="timeline-year">2018</div>
+              <p>Recognized as "Best Emerging School" by Education Times</p>
+            </div>
+          </div>
+          <div class="timeline-item right">
+            <div class="timeline-content">
+              <div class="timeline-year">2022</div>
+              <p>Expanded to include senior secondary classes (XI-XII)</p>
+            </div>
+          </div>
+          <div class="timeline-item left">
+            <div class="timeline-content">
+              <div class="timeline-year">2025</div>
+              <p>
+                Celebrating 20 years of educational excellence with 1000+
+                students
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership Team -->
+    <section class="team-section" id="team">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Leadership Team</h2>
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="team-card">
+              <img src="assets/img/principal.jpg" alt="Principal" />
+              <div class="team-card-body">
+                <h4>Mrs. A. Sharma</h4>
+                <p>Principal</p>
+                <p class="small">
+                  M.Ed, Ph.D (Education), 25+ years experience
+                </p>
+                <div class="team-social">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="team-card">
+              <img src="assets/img/vice-principal.jpg" alt="Vice Principal" />
+              <div class="team-card-body">
+                <h4>Mr. R. Patel</h4>
+                <p>Vice Principal</p>
+                <p class="small">M.Sc, B.Ed, 20+ years experience</p>
+                <div class="team-social">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="team-card">
+              <img src="assets/img/academic-head.jpg" alt="Academic Head" />
+              <div class="team-card-body">
+                <h4>Ms. S. Deshpande</h4>
+                <p>Head of Academics</p>
+                <p class="small">M.A, M.Ed, 18+ years experience</p>
+                <div class="team-social">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="team-card">
+              <img src="assets/img/activities-head.jpg" alt="Activities Head" />
+              <div class="team-card-body">
+                <h4>Mr. V. Kumar</h4>
+                <p>Head of Activities</p>
+                <p class="small">M.P.Ed, 15+ years experience</p>
+                <div class="team-social">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 bg-light">
+      <div class="container text-center">
+        <h2>Ready to Join the Vidyanchal Family?</h2>
+        <p class="lead mb-4">
+          Discover how we can help your child reach their full potential
+        </p>
+        <a href="contact.html" class="btn btn-primary btn-lg me-3"
+          >Schedule a Visit</a
+        >
+        <a href="admissions.html" class="btn btn-outline-primary btn-lg"
+          >Admission Process</a
+        >
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container-fluid">
+      <div class="container">
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="academics.html">Academics</a>
+          <a href="admissions.html">Admissions</a>
+          <a href="facilities.html">Facilities</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <p class="mb-2">&copy; 2025 Vidyanchal School. All rights reserved.</p>
+        <p>
+          <a href="privacy.html">Privacy Policy</a> |
+          <a href="terms.html">Terms of Service</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Navbar scroll effect
+      const navbar = document.querySelector(".navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Animate elements when they come into view
+      const animateOnScroll = function () {
+        const elements = document.querySelectorAll(
+          ".about-feature-box, .value-card, .timeline-item, .team-card"
+        );
+        elements.forEach((element) => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          if (elementPosition < windowHeight - 100) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+          }
+        });
+      };
+
+      // Set initial state for animation
+      document
+        .querySelectorAll(
+          ".about-feature-box, .value-card, .timeline-item, .team-card"
+        )
+        .forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(20px)";
+          el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        });
+
+      window.addEventListener("scroll", animateOnScroll);
+      animateOnScroll(); // Run once on load
+    </script>
   </body>
 </html>

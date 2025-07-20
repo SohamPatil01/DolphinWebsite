@@ -4,31 +4,518 @@
     <meta charset="UTF-8" />
     <title>Contact | Vidyanchal School</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #f56135;
+        --primary-light: #ff8a65;
+        --accent: #e9bd0b;
+        --accent-light: #ffd54f;
+        --dark: #222;
+        --darker: #111;
+        --light-bg: #f9fafb;
+        --lighter-bg: #fff;
+        --border-radius: 16px;
+        --border-radius-sm: 8px;
+        --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana,
+          sans-serif;
+        --heading-font: "Playfair Display", serif;
+        --text-color: #444;
+        --text-light: #666;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background: var(--light-bg);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        line-height: 1.7;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--heading-font);
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--primary);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent);
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background: var(--primary);
+        box-shadow: var(--shadow-md);
+        letter-spacing: 0.8px;
+        padding: 0.8rem 0;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        color: white !important;
+      }
+
+      .navbar-brand img {
+        margin-right: 10px;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled .navbar-brand img {
+        height: 30px;
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+        padding: 0.5rem 1rem;
+        margin: 0 0.2rem;
+        border-radius: var(--border-radius-sm);
+        position: relative;
+      }
+
+      .navbar-nav .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .navbar-nav .nav-link.active,
+      .navbar-nav .nav-link:hover {
+        color: white;
+      }
+
+      .navbar-nav .nav-link.active::before,
+      .navbar-nav .nav-link:hover::before {
+        width: 70%;
+      }
+
+      .btn-warning {
+        background: var(--accent);
+        color: var(--darker);
+        font-weight: 600;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        padding: 0.6rem 1.5rem;
+        transition: var(--transition);
+        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-warning:hover {
+        background: var(--accent-light);
+        color: var(--darker);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
+      }
+
+      .btn-warning:active {
+        transform: translateY(0);
+      }
+
+      /* Breadcrumb */
+      .breadcrumb-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: white;
+        padding: 1.5rem 0;
+        margin-bottom: 3rem;
+      }
+
+      .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+      }
+
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .breadcrumb-item.active {
+        color: var(--accent);
+      }
+
+      .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Contact Hero Section */
+      .contact-hero {
+        padding: 4rem 0;
+        background: url("assets/img/contact-bg.jpg") center/cover no-repeat;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #f56135;
+      }
+
+      .contact-hero .container {
+        position: relative;
+        z-index: 1;
+        color: white;
+      }
+
+      .contact-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: white;
+        position: relative;
+        display: inline-block;
+      }
+
+      .contact-hero h1::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .contact-hero p.lead {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+      }
+
+      /* Contact Info Section */
+      .contact-info-section {
+        padding: 4rem 0;
+      }
+
+      .contact-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        height: 100%;
+        text-align: center;
+        border-top: 4px solid var(--accent);
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .contact-card i {
+        font-size: 2.5rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .contact-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Contact Form Section */
+      .contact-form-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 4rem 0;
+      }
+
+      .contact-form {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 3rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      .contact-form h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+      }
+
+      .contact-form h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: var(--text-color);
+      }
+
+      .form-control,
+      .form-select {
+        border-radius: var(--border-radius-sm);
+        padding: 0.75rem 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 0.25rem rgba(0, 86, 179, 0.1);
+      }
+
+      .required-field::after {
+        content: "*";
+        color: #dc3545;
+        margin-left: 4px;
+      }
+
+      /* Map Section */
+      .map-section {
+        padding: 4rem 0;
+      }
+
+      .map-container {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        height: 400px;
+      }
+
+      /* Office Hours */
+      .hours-section {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .hours-section h3 {
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .hours-section h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--darker) 100%
+        );
+        color: white;
+        text-align: center;
+        padding: 2.5rem 0 1.5rem 0;
+        margin-top: 4rem;
+        font-size: 1rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      footer a:hover {
+        color: white;
+        text-decoration: none;
+      }
+
+      .social-icons {
+        margin: 1.5rem 0;
+      }
+
+      .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 50%;
+        margin: 0 0.5rem;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background: var(--accent);
+        color: var(--darker);
+        transform: translateY(-3px);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      .footer-links a {
+        margin: 0 1rem;
+        padding: 0.3rem 0;
+        position: relative;
+      }
+
+      .footer-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover::after {
+        width: 70%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .contact-hero h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .contact-hero {
+          padding: 3rem 0;
+        }
+
+        .contact-hero h1 {
+          font-size: 2rem;
+        }
+
+        .contact-form {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand {
+          font-size: 1.2rem;
+        }
+
+        .navbar-brand img {
+          height: 30px;
+        }
+
+        .contact-hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .footer-links a {
+          margin: 0 0.5rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html"
-          ><img src="assets/img/logo.png" alt="Logo" width="40" /> Vidyanchal
-          School</a
-        >
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.png" alt="Logo" width="40" />
+          Vidyanchal School
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.html">About</a>
@@ -46,72 +533,284 @@
               <a class="nav-link" href="gallery.html">Gallery</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="events.html">Events</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link active" href="contact.html">Contact</a>
             </li>
           </ul>
-          <a href="admissions.html" class="btn btn-warning ms-3">Apply Now</a>
+          <a
+            href="admissions.html"
+            class="btn btn-warning ms-lg-3 ms-2 mt-lg-0 mt-3"
+            >Apply Now</a
+          >
         </div>
       </div>
     </nav>
-    <section class="py-5">
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section">
       <div class="container">
-        <h1>Contact Us</h1>
-        <div class="row">
-          <div class="col-md-6">
-            <form>
-              <div class="mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Your Name"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="Your Email"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <textarea
-                  class="form-control"
-                  rows="4"
-                  placeholder="Your Message"
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">
-                Send Message
-              </button>
-            </form>
-          </div>
-          <div class="col-md-6">
-            <h5>School Address</h5>
-            <p>
-              Vidyanchal School, Main Street,<br />Pune, Maharashtra, 411001
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contact</li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8 mx-auto text-center">
+            <h1>Contact Us</h1>
+            <p class="lead">
+              We'd love to hear from you. Reach out with any questions or to
+              schedule a visit.
             </p>
-            <h5>Email</h5>
-            <p>info@vidyanchalschool.com</p>
-            <h5>Phone</h5>
-            <p>+91-12345 67890</p>
-            <h5>Location</h5>
-            <iframe
-              src="https://maps.google.com/maps?q=vidyanchal+school+pune&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="200"
-              style="border: 0"
-              allowfullscreen=""
-            ></iframe>
           </div>
         </div>
       </div>
     </section>
-    <!-- Footer: copy from index.html -->
+
+    <!-- Contact Info Section -->
+    <section class="contact-info-section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="contact-card">
+              <i class="fas fa-map-marker-alt"></i>
+              <h3>Our Address</h3>
+              <p>123 School Road, Pune</p>
+              <p>Maharashtra 411001, India</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="contact-card">
+              <i class="fas fa-phone"></i>
+              <h3>Phone Numbers</h3>
+              <p>Main Office: +91 1234567890</p>
+              <p>Admissions: +91 9876543210</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="contact-card">
+              <i class="fas fa-envelope"></i>
+              <h3>Email Addresses</h3>
+              <p>General: info@vidyanchalschool.edu</p>
+              <p>Admissions: admissions@vidyanchalschool.edu</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="contact-form">
+              <h2>Send Us a Message</h2>
+              <p class="text-center mb-4">
+                Fields marked with <span class="text-danger">*</span> are
+                required
+              </p>
+              <form>
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label required-field"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label required-field"
+                      >Email Address</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="subject" class="form-label required-field"
+                      >Subject</label
+                    >
+                    <select class="form-select" id="subject" required>
+                      <option value="">Select a subject</option>
+                      <option>Admissions Inquiry</option>
+                      <option>General Information</option>
+                      <option>School Tour</option>
+                      <option>Feedback</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label required-field"
+                    >Your Message</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="message"
+                    rows="5"
+                    required
+                  ></textarea>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary btn-lg px-5">
+                    Send Message
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Location</h2>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.265588856342!2d73.9145564154166!3d18.562061287384868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c147b8b3a3bf%3A0x6f7fdcc8e4d6c77e!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Office Hours Section -->
+    <section class="contact-info-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="hours-section">
+              <h3>Office Hours</h3>
+              <div class="table-responsive">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Monday - Friday</td>
+                      <td>8:00 AM - 4:00 PM</td>
+                    </tr>
+                    <tr>
+                      <td>Saturday</td>
+                      <td>9:00 AM - 1:00 PM</td>
+                    </tr>
+                    <tr>
+                      <td>Sunday</td>
+                      <td>Closed</td>
+                    </tr>
+                    <tr>
+                      <td>Holidays</td>
+                      <td>Closed</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-3">
+                <i class="fas fa-info-circle me-2"></i> The office is closed on
+                public holidays and school vacations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="academics.html">Academics</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Contact Information</h5>
+            <p>
+              <i class="fas fa-map-marker-alt me-2"></i> 123 School Road, Pune,
+              Maharashtra
+            </p>
+            <p><i class="fas fa-phone me-2"></i> +91 9876543210</p>
+            <p>
+              <i class="fas fa-envelope me-2"></i> info@vidyanchalschool.edu
+            </p>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Connect With Us</h5>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <p class="text-center mb-0">
+          &copy; 2025 Vidyanchal School. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Navbar scroll effect
+      const navbar = document.querySelector(".navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Form validation
+      document.querySelector("form").addEventListener("submit", function (e) {
+        const requiredFields = document.querySelectorAll("[required]");
+        let isValid = true;
+
+        requiredFields.forEach((field) => {
+          if (!field.value) {
+            field.classList.add("is-invalid");
+            isValid = false;
+          } else {
+            field.classList.remove("is-invalid");
+          }
+        });
+
+        if (!isValid) {
+          e.preventDefault();
+          alert("Please fill all required fields");
+        }
+      });
+    </script>
   </body>
 </html>

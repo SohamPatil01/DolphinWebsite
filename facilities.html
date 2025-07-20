@@ -4,31 +4,459 @@
     <meta charset="UTF-8" />
     <title>Facilities | Vidyanchal School</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #f56135;
+        --primary-light: #ff8a65;
+        --accent: #e9bd0b;
+        --accent-light: #ffd54f;
+        --dark: #222;
+        --darker: #111;
+        --light-bg: #f9fafb;
+        --lighter-bg: #fff;
+        --border-radius: 16px;
+        --border-radius-sm: 8px;
+        --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana,
+          sans-serif;
+        --heading-font: "Playfair Display", serif;
+        --text-color: #444;
+        --text-light: #666;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background: var(--light-bg);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        line-height: 1.7;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--heading-font);
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--primary);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent);
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background: var(--primary);
+        box-shadow: var(--shadow-md);
+        letter-spacing: 0.8px;
+        padding: 0.8rem 0;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        color: white !important;
+      }
+
+      .navbar-brand img {
+        margin-right: 10px;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled .navbar-brand img {
+        height: 30px;
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+        padding: 0.5rem 1rem;
+        margin: 0 0.2rem;
+        border-radius: var(--border-radius-sm);
+        position: relative;
+      }
+
+      .navbar-nav .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .navbar-nav .nav-link.active,
+      .navbar-nav .nav-link:hover {
+        color: white;
+      }
+
+      .navbar-nav .nav-link.active::before,
+      .navbar-nav .nav-link:hover::before {
+        width: 70%;
+      }
+
+      .btn-warning {
+        background: var(--accent);
+        color: var(--darker);
+        font-weight: 600;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        padding: 0.6rem 1.5rem;
+        transition: var(--transition);
+        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-warning:hover {
+        background: var(--accent-light);
+        color: var(--darker);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
+      }
+
+      .btn-warning:active {
+        transform: translateY(0);
+      }
+
+      /* Breadcrumb */
+      .breadcrumb-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: white;
+        padding: 1.5rem 0;
+        margin-bottom: 3rem;
+      }
+
+      .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+      }
+
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .breadcrumb-item.active {
+        color: var(--accent);
+      }
+
+      .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Facilities Hero Section */
+      .facilities-hero {
+        padding: 4rem 0;
+        background: url("assets/img/facilities-bg.jpg") center/cover no-repeat;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .facilities-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #f56135;
+      }
+
+      .facilities-hero .container {
+        position: relative;
+        z-index: 1;
+        color: white;
+      }
+
+      .facilities-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: white;
+        position: relative;
+        display: inline-block;
+      }
+
+      .facilities-hero h1::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .facilities-hero p.lead {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+      }
+
+      /* Facilities Section */
+      .facilities-section {
+        padding: 4rem 0;
+      }
+
+      .facility-card {
+        background: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        height: 100%;
+      }
+
+      .facility-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .facility-img {
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .facility-card-body {
+        padding: 1.5rem;
+      }
+
+      .facility-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      /* Campus Tour Section */
+      .tour-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 4rem 0;
+      }
+
+      .tour-video {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        height: 400px;
+      }
+
+      /* Infrastructure Highlights */
+      .infrastructure-section {
+        padding: 4rem 0;
+      }
+
+      .infrastructure-feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .infrastructure-feature i {
+        font-size: 2rem;
+        color: var(--accent);
+        margin-top: 0.3rem;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--darker) 100%
+        );
+        color: white;
+        text-align: center;
+        padding: 2.5rem 0 1.5rem 0;
+        margin-top: 4rem;
+        font-size: 1rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      footer a:hover {
+        color: white;
+        text-decoration: none;
+      }
+
+      .social-icons {
+        margin: 1.5rem 0;
+      }
+
+      .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 50%;
+        margin: 0 0.5rem;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background: var(--accent);
+        color: var(--darker);
+        transform: translateY(-3px);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      .footer-links a {
+        margin: 0 1rem;
+        padding: 0.3rem 0;
+        position: relative;
+      }
+
+      .footer-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover::after {
+        width: 70%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .facilities-hero h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .facilities-hero {
+          padding: 3rem 0;
+        }
+
+        .facilities-hero h1 {
+          font-size: 2rem;
+        }
+
+        .tour-video {
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand {
+          font-size: 1.2rem;
+        }
+
+        .navbar-brand img {
+          height: 30px;
+        }
+
+        .facilities-hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .footer-links a {
+          margin: 0 0.5rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html"
-          ><img src="assets/img/logo.png" alt="Logo" width="40" /> Vidyanchal
-          School</a
-        >
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.png" alt="Logo" width="40" />
+          Vidyanchal School
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.html">About</a>
@@ -40,88 +468,378 @@
               <a class="nav-link" href="admissions.html">Admissions</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="facilities.html">Facilities</a>
+              <a class="nav-link active" href="facilities.html">Facilities</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="gallery.html">Gallery</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="events.html">Events</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
           </ul>
-          <a href="admissions.html" class="btn btn-warning ms-3">Apply Now</a>
+          <a
+            href="admissions.html"
+            class="btn btn-warning ms-lg-3 ms-2 mt-lg-0 mt-3"
+            >Apply Now</a
+          >
         </div>
       </div>
     </nav>
-    <section class="py-5">
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section">
       <div class="container">
-        <h1>Our Facilities</h1>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <img
-              src="assets/img/library.jpg"
-              class="img-fluid rounded mb-3"
-              alt="Library"
-            />
-            <h3>Library</h3>
-            <p>
-              Thousands of books, journals, and e-resources to support learning.
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Facilities
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Facilities Hero Section -->
+    <section class="facilities-hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8 mx-auto text-center">
+            <h1>World-Class Facilities</h1>
+            <p class="lead">
+              Our campus is designed to inspire learning, creativity, and
+              holistic development
             </p>
-          </div>
-          <div class="col-md-4">
-            <img
-              src="assets/img/science_lab.jpg"
-              class="img-fluid rounded mb-3"
-              alt="Science Lab"
-            />
-            <h3>Science Labs</h3>
-            <p>
-              Modern laboratories for Physics, Chemistry, Biology with hands-on
-              learning.
-            </p>
-          </div>
-          <div class="col-md-4">
-            <img
-              src="assets/img/computer_lab.jpg"
-              class="img-fluid rounded mb-3"
-              alt="Computer Lab"
-            />
-            <h3>Computer Lab</h3>
-            <p>State-of-the-art systems for digital literacy and coding.</p>
-          </div>
-          <div class="col-md-4">
-            <img
-              src="assets/img/art_room.jpg"
-              class="img-fluid rounded mb-3"
-              alt="Art Room"
-            />
-            <h3>Art &amp; Music Rooms</h3>
-            <p>Creative spaces for artistic and musical exploration.</p>
-          </div>
-          <div class="col-md-4">
-            <img
-              src="assets/img/playground.jpg"
-              class="img-fluid rounded mb-3"
-              alt="Playground"
-            />
-            <h3>Sports &amp; Playground</h3>
-            <p>Open grounds, courts, and sports coaches for all abilities.</p>
-          </div>
-          <div class="col-md-4">
-            <img
-              src="assets/img/transport.jpg"
-              class="img-fluid rounded mb-3"
-              alt="Transport"
-            />
-            <h3>Transport</h3>
-            <p>Safe school buses with GPS and trained staff.</p>
           </div>
         </div>
       </div>
     </section>
-    <!-- Footer: copy from index.html -->
+
+    <!-- Facilities Section -->
+    <section class="facilities-section">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Campus Facilities</h2>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="facility-card">
+              <img
+                src="assets/img/library.jpg"
+                class="facility-img"
+                alt="Library"
+              />
+              <div class="facility-card-body">
+                <h3>Learning Resource Center</h3>
+                <p>
+                  A state-of-the-art library with 15,000+ books, digital
+                  resources, quiet study areas, and collaborative learning
+                  spaces.
+                </p>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Digital
+                    catalog system
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Reading nooks
+                    and study pods
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Online
+                    research databases
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="facility-card">
+              <img
+                src="assets/img/science-lab.jpg"
+                class="facility-img"
+                alt="Science Lab"
+              />
+              <div class="facility-card-body">
+                <h3>Science & Innovation Labs</h3>
+                <p>
+                  Fully equipped laboratories for Physics, Chemistry, Biology,
+                  and Robotics with modern equipment and safety features.
+                </p>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Dedicated
+                    robotics lab
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> 3D printing
+                    and prototyping
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Student
+                    research projects
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="facility-card">
+              <img
+                src="assets/img/sports.jpg"
+                class="facility-img"
+                alt="Sports"
+              />
+              <div class="facility-card-body">
+                <h3>Sports Complex</h3>
+                <p>
+                  Comprehensive sports facilities including indoor and outdoor
+                  courts, swimming pool, and athletic tracks.
+                </p>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Olympic-size
+                    swimming pool
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Basketball,
+                    volleyball, badminton courts
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Football
+                    field and running track
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="facility-card">
+              <img
+                src="assets/img/arts.jpg"
+                class="facility-img"
+                alt="Performing Arts"
+              />
+              <div class="facility-card-body">
+                <h3>Performing Arts Center</h3>
+                <p>
+                  Dedicated spaces for music, dance, drama, and visual arts with
+                  professional-grade equipment.
+                </p>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Auditorium
+                    with 500-seat capacity
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Music
+                    practice rooms
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Art studios
+                    and gallery
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="facility-card">
+              <img
+                src="assets/img/technology.jpg"
+                class="facility-img"
+                alt="Technology"
+              />
+              <div class="facility-card-body">
+                <h3>Technology Center</h3>
+                <p>
+                  Modern computer labs with the latest hardware and software,
+                  supporting digital literacy and coding education.
+                </p>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> 1:1 device
+                    program for higher grades
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Programming
+                    and AI labs
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Multimedia
+                    production studio
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="facility-card">
+              <img
+                src="assets/img/cafeteria.jpg"
+                class="facility-img"
+                alt="Cafeteria"
+              />
+              <div class="facility-card-body">
+                <h3>Dining & Wellness</h3>
+                <p>
+                  Hygienic cafeteria serving nutritious meals, plus health
+                  center with full-time nurse and counseling services.
+                </p>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Nutritious
+                    meal plans
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Health clinic
+                    with first aid
+                  </li>
+                  <li>
+                    <i class="fas fa-check text-primary me-2"></i> Student
+                    counseling center
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Campus Tour Section -->
+    <section class="tour-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4 mb-lg-0">
+            <h2>Virtual Campus Tour</h2>
+            <p>
+              Explore our state-of-the-art facilities from anywhere in the
+              world. Take a 360° virtual tour of our campus and see what makes
+              Vidyanchal School special.
+            </p>
+            <a href="#" class="btn btn-primary">Take the Virtual Tour</a>
+          </div>
+          <div class="col-lg-6">
+            <div class="tour-video">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/example"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Infrastructure Highlights -->
+    <section class="infrastructure-section">
+      <div class="container">
+        <h2 class="text-center mb-5">Infrastructure Highlights</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="infrastructure-feature">
+              <i class="fas fa-shield-alt"></i>
+              <div>
+                <h3>Safe & Secure Campus</h3>
+                <p>
+                  24/7 security with CCTV surveillance, controlled access
+                  points, and emergency response systems.
+                </p>
+              </div>
+            </div>
+            <div class="infrastructure-feature">
+              <i class="fas fa-leaf"></i>
+              <div>
+                <h3>Eco-Friendly Design</h3>
+                <p>
+                  Sustainable architecture with solar panels, rainwater
+                  harvesting, and green spaces throughout campus.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="infrastructure-feature">
+              <i class="fas fa-wifi"></i>
+              <div>
+                <h3>Smart Classrooms</h3>
+                <p>
+                  Technology-enabled learning spaces with interactive displays
+                  and high-speed WiFi throughout campus.
+                </p>
+              </div>
+            </div>
+            <div class="infrastructure-feature">
+              <i class="fas fa-wheelchair"></i>
+              <div>
+                <h3>Accessibility</h3>
+                <p>
+                  Fully accessible campus with ramps, elevators, and facilities
+                  designed for differently-abled students.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="academics.html">Academics</a></li>
+              <li><a href="facilities.html">Facilities</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Contact Information</h5>
+            <p>
+              <i class="fas fa-map-marker-alt me-2"></i> 123 School Road, Pune,
+              Maharashtra
+            </p>
+            <p><i class="fas fa-phone me-2"></i> +91 9876543210</p>
+            <p>
+              <i class="fas fa-envelope me-2"></i> info@vidyanchalschool.edu
+            </p>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Connect With Us</h5>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <p class="text-center mb-0">
+          &copy; 2025 Vidyanchal School. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Navbar scroll effect
+      const navbar = document.querySelector(".navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+    </script>
   </body>
 </html>

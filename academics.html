@@ -4,37 +4,530 @@
     <meta charset="UTF-8" />
     <title>Academics | Vidyanchal School</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #f56135;
+        --primary-light: #ff8a65;
+        --accent: #e9bd0b;
+        --accent-light: #ffd54f;
+        --dark: #222;
+        --darker: #111;
+        --light-bg: #f9fafb;
+        --lighter-bg: #fff;
+        --border-radius: 16px;
+        --border-radius-sm: 8px;
+        --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana,
+          sans-serif;
+        --heading-font: "Playfair Display", serif;
+        --text-color: #444;
+        --text-light: #666;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background: var(--light-bg);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        line-height: 1.7;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--heading-font);
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--primary);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent);
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background: var(--primary);
+        box-shadow: var(--shadow-md);
+        letter-spacing: 0.8px;
+        padding: 0.8rem 0;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        color: white !important;
+      }
+
+      .navbar-brand img {
+        margin-right: 10px;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled .navbar-brand img {
+        height: 30px;
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+        padding: 0.5rem 1rem;
+        margin: 0 0.2rem;
+        border-radius: var(--border-radius-sm);
+        position: relative;
+      }
+
+      .navbar-nav .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .navbar-nav .nav-link.active,
+      .navbar-nav .nav-link:hover {
+        color: white;
+      }
+
+      .navbar-nav .nav-link.active::before,
+      .navbar-nav .nav-link:hover::before {
+        width: 70%;
+      }
+
+      .btn-warning {
+        background: var(--accent);
+        color: var(--darker);
+        font-weight: 600;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        padding: 0.6rem 1.5rem;
+        transition: var(--transition);
+        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-warning:hover {
+        background: var(--accent-light);
+        color: var(--darker);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
+      }
+
+      .btn-warning:active {
+        transform: translateY(0);
+      }
+
+      /* Breadcrumb */
+      .breadcrumb-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: white;
+        padding: 1.5rem 0;
+        margin-bottom: 3rem;
+      }
+
+      .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+      }
+
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .breadcrumb-item.active {
+        color: var(--accent);
+      }
+
+      .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Academics Hero Section */
+      .academics-hero {
+        padding: 4rem 0;
+        background: url("assets/img/academics-bg.jpg") center/cover no-repeat;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .academics-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #f56135;
+      }
+
+      .academics-hero .container {
+        position: relative;
+        z-index: 1;
+        color: white;
+      }
+
+      .academics-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: white;
+        position: relative;
+        display: inline-block;
+      }
+
+      .academics-hero h1::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .academics-hero p.lead {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+      }
+
+      /* Programs Section */
+      .programs-section {
+        padding: 4rem 0;
+      }
+
+      .program-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        height: 100%;
+        border-top: 4px solid var(--accent);
+      }
+
+      .program-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .program-card i {
+        font-size: 2.5rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .program-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .program-card ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .program-card ul li {
+        padding-left: 2rem;
+        position: relative;
+        margin-bottom: 0.8rem;
+      }
+
+      .program-card ul li::before {
+        content: "\f00c";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+      }
+
+      /* Curriculum Section */
+      .curriculum-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 4rem 0;
+      }
+
+      .curriculum-feature {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+
+      .curriculum-feature i {
+        font-size: 2rem;
+        color: var(--accent);
+        margin-top: 0.3rem;
+      }
+
+      .curriculum-feature h3 {
+        margin-bottom: 1rem;
+      }
+
+      /* Teaching Methodology */
+      .methodology-section {
+        padding: 4rem 0;
+      }
+
+      .methodology-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+        height: 100%;
+        text-align: center;
+      }
+
+      .methodology-card i {
+        font-size: 2.5rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .methodology-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Academic Calendar */
+      .calendar-section {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      }
+
+      .calendar-highlight {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .calendar-highlight h3 {
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .calendar-highlight h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--darker) 100%
+        );
+        color: white;
+        text-align: center;
+        padding: 2.5rem 0 1.5rem 0;
+        margin-top: 4rem;
+        font-size: 1rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      footer a:hover {
+        color: white;
+        text-decoration: none;
+      }
+
+      .social-icons {
+        margin: 1.5rem 0;
+      }
+
+      .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 50%;
+        margin: 0 0.5rem;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background: var(--accent);
+        color: var(--darker);
+        transform: translateY(-3px);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      .footer-links a {
+        margin: 0 1rem;
+        padding: 0.3rem 0;
+        position: relative;
+      }
+
+      .footer-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover::after {
+        width: 70%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .academics-hero h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .academics-hero {
+          padding: 3rem 0;
+        }
+
+        .academics-hero h1 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand {
+          font-size: 1.2rem;
+        }
+
+        .navbar-brand img {
+          height: 30px;
+        }
+
+        .academics-hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .footer-links a {
+          margin: 0 0.5rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html"
-          ><img src="assets/img/logo.png" alt="Logo" width="40" /> Vidyanchal
-          School</a
-        >
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.png" alt="Logo" width="40" />
+          Vidyanchal School
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.html">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="academics.html">Academics</a>
+              <a class="nav-link active" href="academics.html">Academics</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="admissions.html">Admissions</a>
@@ -46,42 +539,330 @@
               <a class="nav-link" href="gallery.html">Gallery</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="events.html">Events</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
           </ul>
-          <a href="admissions.html" class="btn btn-warning ms-3">Apply Now</a>
+          <a
+            href="admissions.html"
+            class="btn btn-warning ms-lg-3 ms-2 mt-lg-0 mt-3"
+            >Apply Now</a
+          >
         </div>
       </div>
     </nav>
-    <section class="py-5">
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section">
       <div class="container">
-        <h1>Academic Programs</h1>
-        <p>
-          We offer a robust curriculum from Pre-Primary to Senior Secondary
-          levels with a balance of theory and practical application.
-        </p>
-        <h2 class="mt-5">Curriculum</h2>
-        <ul>
-          <li>Pre-Primary – Activity-based foundational learning</li>
-          <li>Primary – Core subjects, introduction to arts and sports</li>
-          <li>
-            Middle &amp; Secondary – In-depth sciences, maths, languages, coding
-          </li>
-        </ul>
-        <h2 class="mt-5">Faculty</h2>
-        <p>
-          Our dedicated, certified teachers bring rich teaching experience and
-          fresh perspectives. <a href="faculty.html">Meet Our Team</a>
-        </p>
-        <h2 class="mt-5">Academic Calendar</h2>
-        <a href="assets/calendar-2025.pdf" download
-          >Download Academic Calendar</a
-        >
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Academics
+            </li>
+          </ol>
+        </nav>
       </div>
     </section>
-    <!-- Footer: copy from index.html -->
+
+    <!-- Academics Hero Section -->
+    <section class="academics-hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8 mx-auto text-center">
+            <h1>Academic Excellence</h1>
+            <p class="lead">
+              Our comprehensive curriculum nurtures intellectual growth and
+              prepares students for future success
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs-section">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Academic Programs</h2>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="program-card">
+              <i class="fas fa-child"></i>
+              <h3>Pre-Primary</h3>
+              <p>Activity-based foundational learning for ages 3-6</p>
+              <ul>
+                <li>Language development</li>
+                <li>Creative expression</li>
+                <li>Numeracy skills</li>
+                <li>Social-emotional learning</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="program-card">
+              <i class="fas fa-pencil-alt"></i>
+              <h3>Primary School</h3>
+              <p>Grades 1-5 building strong academic foundations</p>
+              <ul>
+                <li>Core subject mastery</li>
+                <li>Reading comprehension</li>
+                <li>Problem-solving skills</li>
+                <li>Project-based learning</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="program-card">
+              <i class="fas fa-book-open"></i>
+              <h3>Middle School</h3>
+              <p>Grades 6-8 with exploratory learning approach</p>
+              <ul>
+                <li>Subject specialization</li>
+                <li>Critical thinking</li>
+                <li>Research skills</li>
+                <li>Leadership development</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="program-card">
+              <i class="fas fa-laptop-code"></i>
+              <h3>Secondary School</h3>
+              <p>Grades 9-10 with CBSE curriculum</p>
+              <ul>
+                <li>STEM-focused learning</li>
+                <li>Comprehensive assessments</li>
+                <li>Career exploration</li>
+                <li>Board exam preparation</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="program-card">
+              <i class="fas fa-graduation-cap"></i>
+              <h3>Senior Secondary</h3>
+              <p>Grades 11-12 with Science, Commerce & Humanities streams</p>
+              <ul>
+                <li>In-depth subject knowledge</li>
+                <li>University preparation</li>
+                <li>Career counseling</li>
+                <li>Competitive exam training</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="program-card">
+              <i class="fas fa-palette"></i>
+              <h3>Special Programs</h3>
+              <p>Enrichment beyond the standard curriculum</p>
+              <ul>
+                <li>STEM labs</li>
+                <li>Performing arts</li>
+                <li>Sports academies</li>
+                <li>Language immersion</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section class="curriculum-section">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Curriculum Approach</h2>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="curriculum-feature">
+              <i class="fas fa-book"></i>
+              <div>
+                <h3>CBSE Curriculum</h3>
+                <p>
+                  We follow the comprehensive CBSE curriculum enhanced with our
+                  own innovative teaching methodologies to provide a balanced
+                  education that meets national standards while fostering
+                  individual growth.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="curriculum-feature">
+              <i class="fas fa-atom"></i>
+              <div>
+                <h3>STEM Focus</h3>
+                <p>
+                  Special emphasis on Science, Technology, Engineering and
+                  Mathematics with dedicated labs, maker spaces, and
+                  project-based learning to prepare students for future careers.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="curriculum-feature">
+              <i class="fas fa-globe-asia"></i>
+              <div>
+                <h3>Global Perspective</h3>
+                <p>
+                  Our curriculum incorporates international best practices and
+                  global awareness to prepare students to thrive in an
+                  interconnected world.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="curriculum-feature">
+              <i class="fas fa-heart"></i>
+              <div>
+                <h3>Holistic Development</h3>
+                <p>
+                  Beyond academics, we focus on character building, emotional
+                  intelligence, physical health, and creative expression to
+                  develop well-rounded individuals.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaching Methodology -->
+    <section class="methodology-section">
+      <div class="container">
+        <h2 class="text-center mb-5">Our Teaching Methodology</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="methodology-card">
+              <i class="fas fa-hands-helping"></i>
+              <h3>Interactive Learning</h3>
+              <p>
+                Student-centered approach with hands-on activities and classroom
+                discussions to promote engagement.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="methodology-card">
+              <i class="fas fa-project-diagram"></i>
+              <h3>Project-Based</h3>
+              <p>
+                Real-world projects that encourage collaboration, critical
+                thinking and problem-solving skills.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="methodology-card">
+              <i class="fas fa-user-graduate"></i>
+              <h3>Differentiated Instruction</h3>
+              <p>
+                Customized teaching methods to address individual learning
+                styles and paces.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Academic Calendar -->
+    <section class="calendar-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="calendar-highlight">
+              <h3 class="text-center">Academic Calendar 2025-26</h3>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Term</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Key Events</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Term 1</td>
+                      <td>April 1, 2025</td>
+                      <td>September 30, 2025</td>
+                      <td>Orientation, Annual Day, Mid-Term Exams</td>
+                    </tr>
+                    <tr>
+                      <td>Term 2</td>
+                      <td>October 15, 2025</td>
+                      <td>March 31, 2026</td>
+                      <td>Sports Day, Annual Exams, Graduation</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">Download Full Calendar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="academics.html">Academics</a></li>
+              <li><a href="admissions.html">Admissions</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Contact Information</h5>
+            <p>
+              <i class="fas fa-map-marker-alt me-2"></i> 123 School Road, Pune,
+              Maharashtra
+            </p>
+            <p><i class="fas fa-phone me-2"></i> +91 9876543210</p>
+            <p>
+              <i class="fas fa-envelope me-2"></i> info@vidyanchalschool.edu
+            </p>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Connect With Us</h5>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <p class="text-center mb-0">
+          &copy; 2025 Vidyanchal School. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Navbar scroll effect
+      const navbar = document.querySelector(".navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+    </script>
   </body>
 </html>

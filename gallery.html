@@ -4,31 +4,504 @@
     <meta charset="UTF-8" />
     <title>Gallery | Vidyanchal School</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #f56135;
+        --primary-light: #ff8a65;
+        --accent: #e9bd0b;
+        --accent-light: #ffd54f;
+        --dark: #222;
+        --darker: #111;
+        --light-bg: #f9fafb;
+        --lighter-bg: #fff;
+        --border-radius: 16px;
+        --border-radius-sm: 8px;
+        --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana,
+          sans-serif;
+        --heading-font: "Playfair Display", serif;
+        --text-color: #444;
+        --text-light: #666;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: var(--font-family);
+        background: var(--light-bg);
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+        line-height: 1.7;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--heading-font);
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--primary);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--primary);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--accent);
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background: var(--primary);
+        box-shadow: var(--shadow-md);
+        letter-spacing: 0.8px;
+        padding: 0.8rem 0;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        color: white !important;
+      }
+
+      .navbar-brand img {
+        margin-right: 10px;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled .navbar-brand img {
+        height: 30px;
+      }
+
+      .navbar-nav .nav-link {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+        padding: 0.5rem 1rem;
+        margin: 0 0.2rem;
+        border-radius: var(--border-radius-sm);
+        position: relative;
+      }
+
+      .navbar-nav .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .navbar-nav .nav-link.active,
+      .navbar-nav .nav-link:hover {
+        color: white;
+      }
+
+      .navbar-nav .nav-link.active::before,
+      .navbar-nav .nav-link:hover::before {
+        width: 70%;
+      }
+
+      .btn-warning {
+        background: var(--accent);
+        color: var(--darker);
+        font-weight: 600;
+        border: none;
+        border-radius: var(--border-radius-sm);
+        padding: 0.6rem 1.5rem;
+        transition: var(--transition);
+        box-shadow: 0 2px 8px rgba(255, 204, 0, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn-warning:hover {
+        background: var(--accent-light);
+        color: var(--darker);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 204, 0, 0.4);
+      }
+
+      .btn-warning:active {
+        transform: translateY(0);
+      }
+
+      /* Breadcrumb */
+      .breadcrumb-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-light) 100%
+        );
+        color: white;
+        padding: 1.5rem 0;
+        margin-bottom: 3rem;
+      }
+
+      .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+      }
+
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .breadcrumb-item.active {
+        color: var(--accent);
+      }
+
+      .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Gallery Hero Section */
+      .gallery-hero {
+        padding: 4rem 0;
+        background: url("assets/img/gallery-bg.jpg") center/cover no-repeat;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .gallery-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #f56135;
+      }
+
+      .gallery-hero .container {
+        position: relative;
+        z-index: 1;
+        color: white;
+      }
+
+      .gallery-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        color: white;
+        position: relative;
+        display: inline-block;
+      }
+
+      .gallery-hero h1::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .gallery-hero p.lead {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 2rem;
+      }
+
+      /* Gallery Section */
+      .gallery-section {
+        padding: 4rem 0;
+      }
+
+      .gallery-category {
+        position: relative;
+        margin: 3rem 0 2rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .gallery-category::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .gallery-img-container {
+        position: relative;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+      }
+
+      .gallery-img-container:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .gallery-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .gallery-img-container:hover .gallery-img {
+        transform: scale(1.05);
+      }
+
+      .gallery-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        color: white;
+        padding: 1rem;
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .gallery-img-container:hover .gallery-caption {
+        opacity: 1;
+      }
+
+      /* Gallery Filters */
+      .gallery-filters {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .gallery-filter {
+        padding: 0.5rem 1.5rem;
+        background: white;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .gallery-filter:hover,
+      .gallery-filter.active {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Lightbox Modal */
+      .modal-gallery .modal-dialog {
+        max-width: 90%;
+        height: 90vh;
+      }
+
+      .modal-gallery .modal-content {
+        height: 100%;
+        background: transparent;
+        border: none;
+      }
+
+      .modal-gallery .modal-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-gallery img {
+        max-height: 80vh;
+        max-width: 100%;
+        object-fit: contain;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--darker) 100%
+        );
+        color: white;
+        text-align: center;
+        padding: 2.5rem 0 1.5rem 0;
+        margin-top: 4rem;
+        font-size: 1rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        position: relative;
+      }
+
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      footer a:hover {
+        color: white;
+        text-decoration: none;
+      }
+
+      .social-icons {
+        margin: 1.5rem 0;
+      }
+
+      .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 50%;
+        margin: 0 0.5rem;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        background: var(--accent);
+        color: var(--darker);
+        transform: translateY(-3px);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+
+      .footer-links a {
+        margin: 0 1rem;
+        padding: 0.3rem 0;
+        position: relative;
+      }
+
+      .footer-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover::after {
+        width: 70%;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .gallery-hero h1 {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery-hero {
+          padding: 3rem 0;
+        }
+
+        .gallery-hero h1 {
+          font-size: 2rem;
+        }
+
+        .gallery-img {
+          height: 200px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .navbar-brand {
+          font-size: 1.2rem;
+        }
+
+        .navbar-brand img {
+          height: 30px;
+        }
+
+        .gallery-hero h1 {
+          font-size: 1.8rem;
+        }
+
+        .footer-links a {
+          margin: 0 0.5rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html"
-          ><img src="assets/img/logo.png" alt="Logo" width="40" /> Vidyanchal
-          School</a
-        >
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.png" alt="Logo" width="40" />
+          Vidyanchal School
+        </a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
+          aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.html">About</a>
@@ -43,64 +516,411 @@
               <a class="nav-link" href="facilities.html">Facilities</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="gallery.html">Gallery</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="events.html">Events</a>
+              <a class="nav-link active" href="gallery.html">Gallery</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
           </ul>
-          <a href="admissions.html" class="btn btn-warning ms-3">Apply Now</a>
+          <a
+            href="admissions.html"
+            class="btn btn-warning ms-lg-3 ms-2 mt-lg-0 mt-3"
+            >Apply Now</a
+          >
         </div>
       </div>
     </nav>
-    <section class="py-5">
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section">
       <div class="container">
-        <h1 class="mb-4">Photo Gallery</h1>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <img
-              src="assets/img/gallery1.jpg"
-              class="img-fluid rounded"
-              alt="Activity 1"
-            />
-          </div>
-          <div class="col-md-4">
-            <img
-              src="assets/img/gallery2.jpg"
-              class="img-fluid rounded"
-              alt="Event 2"
-            />
-          </div>
-          <div class="col-md-4">
-            <img
-              src="assets/img/gallery3.jpg"
-              class="img-fluid rounded"
-              alt="Campus"
-            />
-          </div>
-        </div>
-        <h2 class="mt-5">Video Gallery</h2>
-        <div class="row g-4">
-          <div class="col-md-6">
-            <video
-              controls
-              src="assets/video/event1.mp4"
-              class="w-100 rounded"
-            ></video>
-          </div>
-          <div class="col-md-6">
-            <video
-              controls
-              src="assets/video/event2.mp4"
-              class="w-100 rounded"
-            ></video>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Gallery</li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8 mx-auto text-center">
+            <h1>School Gallery</h1>
+            <p class="lead">
+              Capturing moments of learning, growth, and achievement
+            </p>
           </div>
         </div>
       </div>
     </section>
-    <!-- Footer: copy from index.html -->
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+      <div class="container">
+        <div class="gallery-filters">
+          <div class="gallery-filter active" data-filter="all">All</div>
+          <div class="gallery-filter" data-filter="campus">Campus Life</div>
+          <div class="gallery-filter" data-filter="events">Events</div>
+          <div class="gallery-filter" data-filter="sports">Sports</div>
+          <div class="gallery-filter" data-filter="academics">Academics</div>
+        </div>
+
+        <div class="row">
+          <!-- Campus Life -->
+          <div class="col-12">
+            <h3 class="gallery-category">Campus Life</h3>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="campus">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/campus1.jpg"
+            >
+              <img
+                src="assets/img/gallery/campus1.jpg"
+                class="gallery-img"
+                alt="School Campus"
+              />
+              <div class="gallery-caption">
+                <h5>Main Building</h5>
+                <p>Our iconic school building with modern architecture</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="campus">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/campus2.jpg"
+            >
+              <img
+                src="assets/img/gallery/campus2.jpg"
+                class="gallery-img"
+                alt="Library"
+              />
+              <div class="gallery-caption">
+                <h5>Learning Resource Center</h5>
+                <p>Students exploring knowledge in our library</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="campus">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/campus3.jpg"
+            >
+              <img
+                src="assets/img/gallery/campus3.jpg"
+                class="gallery-img"
+                alt="Cafeteria"
+              />
+              <div class="gallery-caption">
+                <h5>Dining Hall</h5>
+                <p>Students enjoying nutritious meals together</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Events -->
+          <div class="col-12">
+            <h3 class="gallery-category">Events</h3>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="events">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/event1.jpg"
+            >
+              <img
+                src="assets/img/gallery/event1.jpg"
+                class="gallery-img"
+                alt="Annual Day"
+              />
+              <div class="gallery-caption">
+                <h5>Annual Day</h5>
+                <p>Students performing on our grand stage</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="events">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/event2.jpg"
+            >
+              <img
+                src="assets/img/gallery/event2.jpg"
+                class="gallery-img"
+                alt="Science Fair"
+              />
+              <div class="gallery-caption">
+                <h5>Science Fair</h5>
+                <p>Young scientists showcasing their projects</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="events">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/event3.jpg"
+            >
+              <img
+                src="assets/img/gallery/event3.jpg"
+                class="gallery-img"
+                alt="Graduation"
+              />
+              <div class="gallery-caption">
+                <h5>Graduation Ceremony</h5>
+                <p>Celebrating our graduating class</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sports -->
+          <div class="col-12">
+            <h3 class="gallery-category">Sports</h3>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="sports">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/sports1.jpg"
+            >
+              <img
+                src="assets/img/gallery/sports1.jpg"
+                class="gallery-img"
+                alt="Sports Day"
+              />
+              <div class="gallery-caption">
+                <h5>Annual Sports Day</h5>
+                <p>Students competing in track events</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="sports">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/sports2.jpg"
+            >
+              <img
+                src="assets/img/gallery/sports2.jpg"
+                class="gallery-img"
+                alt="Basketball"
+              />
+              <div class="gallery-caption">
+                <h5>Basketball Tournament</h5>
+                <p>Our team in action during inter-school competition</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="sports">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/sports3.jpg"
+            >
+              <img
+                src="assets/img/gallery/sports3.jpg"
+                class="gallery-img"
+                alt="Swimming"
+              />
+              <div class="gallery-caption">
+                <h5>Swimming Championship</h5>
+                <p>Students excelling in aquatic sports</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academics -->
+          <div class="col-12">
+            <h3 class="gallery-category">Academics</h3>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="academics">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/academic1.jpg"
+            >
+              <img
+                src="assets/img/gallery/academic1.jpg"
+                class="gallery-img"
+                alt="Classroom"
+              />
+              <div class="gallery-caption">
+                <h5>Interactive Learning</h5>
+                <p>Students engaged in classroom discussion</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="academics">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/academic2.jpg"
+            >
+              <img
+                src="assets/img/gallery/academic2.jpg"
+                class="gallery-img"
+                alt="Science Lab"
+              />
+              <div class="gallery-caption">
+                <h5>Science Experiment</h5>
+                <p>Hands-on learning in our chemistry lab</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 gallery-item" data-category="academics">
+            <div
+              class="gallery-img-container"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-bs-img="assets/img/gallery/academic3.jpg"
+            >
+              <img
+                src="assets/img/gallery/academic3.jpg"
+                class="gallery-img"
+                alt="Robotics"
+              />
+              <div class="gallery-caption">
+                <h5>Robotics Workshop</h5>
+                <p>Students building and programming robots</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Modal -->
+    <div
+      class="modal fade modal-gallery"
+      id="galleryModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="" id="modalImage" class="img-fluid" alt="Gallery Image" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="academics.html">Academics</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Contact Information</h5>
+            <p>
+              <i class="fas fa-map-marker-alt me-2"></i> 123 School Road, Pune,
+              Maharashtra
+            </p>
+            <p><i class="fas fa-phone me-2"></i> +91 9876543210</p>
+            <p>
+              <i class="fas fa-envelope me-2"></i> info@vidyanchalschool.edu
+            </p>
+          </div>
+          <div class="col-md-4 mb-4">
+            <h5>Connect With Us</h5>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <p class="text-center mb-0">
+          &copy; 2025 Vidyanchal School. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Navbar scroll effect
+      const navbar = document.querySelector(".navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Gallery filter functionality
+      const filters = document.querySelectorAll(".gallery-filter");
+      const galleryItems = document.querySelectorAll(".gallery-item");
+
+      filters.forEach((filter) => {
+        filter.addEventListener("click", () => {
+          // Update active filter
+          filters.forEach((f) => f.classList.remove("active"));
+          filter.classList.add("active");
+
+          const filterValue = filter.getAttribute("data-filter");
+
+          // Filter gallery items
+          galleryItems.forEach((item) => {
+            const category = item.getAttribute("data-category");
+
+            if (filterValue === "all" || filterValue === category) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Lightbox functionality
+      const galleryModal = document.getElementById("galleryModal");
+      if (galleryModal) {
+        galleryModal.addEventListener("show.bs.modal", function (event) {
+          const button = event.relatedTarget;
+          const imgSrc = button.getAttribute("data-bs-img");
+          const modalImage = document.getElementById("modalImage");
+          modalImage.src = imgSrc;
+        });
+      }
+    </script>
   </body>
 </html>
